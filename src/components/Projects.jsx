@@ -5,7 +5,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import VanillaTilt from "vanilla-tilt";
 import { FiGithub, FiExternalLink } from "react-icons/fi";
 import resumeData from "../data/resumeData";
-import { staggerContainer, fadeIn } from "../utils/animations";
+import { fadeIn } from "../utils/animations";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -95,36 +95,53 @@ const Projects = () => {
                 {/* Project Header */}
                 <div className="mb-4">
                   <div className="flex items-center justify-between mb-2">
-                    <h3 className="text-2xl font-display font-bold text-white group-hover:text-purple-400 transition-colors">
+                    <h3 className="text-xl font-display font-bold text-white group-hover:text-purple-400 transition-colors">
                       {project.name}
                     </h3>
                     <div className="flex gap-3">
                       <a
                         href={project.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="text-gray-400 hover:text-white transition-colors"
                         onClick={(e) => e.stopPropagation()}
                       >
                         <FiGithub className="text-xl" />
                       </a>
-                      <a
-                        href={project.live}
-                        className="text-gray-400 hover:text-purple-400 transition-colors"
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        <FiExternalLink className="text-xl" />
-                      </a>
+                      {project.live !== "#" && (
+                        <a
+                          href={project.live}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-gray-400 hover:text-purple-400 transition-colors"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          <FiExternalLink className="text-xl" />
+                        </a>
+                      )}
                     </div>
                   </div>
-                  <p className="text-sm text-gray-500">{project.date}</p>
+
+                  {/* Tech Stack */}
+                  <div className="flex flex-wrap gap-2 mb-3">
+                    {project.tech?.map((tech, idx) => (
+                      <span
+                        key={idx}
+                        className="px-2 py-1 text-xs font-semibold rounded-full bg-gradient-to-r from-purple-500/20 to-pink-500/20 text-purple-300 border border-purple-500/30"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
                 </div>
 
                 {/* Description */}
-                <p className="text-gray-300 mb-4 leading-relaxed">
+                <p className="text-gray-300 mb-4 leading-relaxed text-sm">
                   {project.description}
                 </p>
 
                 {/* Features */}
-                <div className="mb-6">
+                <div className="mb-4">
                   <ul className="space-y-2">
                     {project.features.map((feature, idx) => (
                       <li
@@ -136,18 +153,6 @@ const Projects = () => {
                       </li>
                     ))}
                   </ul>
-                </div>
-
-                {/* Tech Stack */}
-                <div className="flex flex-wrap gap-2">
-                  {project.tech.map((tech, idx) => (
-                    <span
-                      key={idx}
-                      className="px-3 py-1 text-xs font-semibold rounded-full bg-gradient-to-r from-purple-500/20 to-pink-500/20 text-purple-300 border border-purple-500/30"
-                    >
-                      {tech}
-                    </span>
-                  ))}
                 </div>
               </div>
 

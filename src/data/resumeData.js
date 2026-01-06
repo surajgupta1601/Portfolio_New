@@ -46,45 +46,86 @@ const resumeData = {
 
   projects: [
     {
-      name: "MediCare Plus – Healthcare Platform",
-      date: "June 2025",
-      tech: ["HTML", "CSS", "JavaScript", "Tailwind CSS", "GSAP"],
+      name: "Wellness Tracker",
+      repoName: "Wellness-Tracker",
+      tech: ["React", "Tailwind CSS", "Recharts"],
       description:
-        "A comprehensive healthcare platform with advanced features for patient care and medical consultations.",
+        "A comprehensive wellness tracking app to track daily activities, monitor progress, and build healthy habits with data visualization.",
       features: [
-        "AI-based symptom checker",
-        "Appointment booking & emergency help",
-        "Video consultation & doctor availability",
-        "GSAP animations improved engagement by ~30%",
+        "Interactive dashboard with charts (Recharts)",
+        "Dark/Light mode with system preference",
+        "CSV export & offline local storage",
+        "Responsive mobile-first design",
       ],
-      github: "#",
+      github: "https://github.com/surajgupt1601/Wellness-Tracker",
+      live: "#",
+    },
+    {
+      name: "Portfolio – React",
+      repoName: "Portfolio_New",
+      tech: ["React", "Tailwind CSS", "Framer Motion", "GSAP"],
+      description:
+        "Modern portfolio website built with React, Tailwind CSS, and Framer Motion with stunning animations.",
+      features: [
+        "Glassmorphism design",
+        "GSAP & Framer Motion animations",
+        "Responsive & Interactive",
+      ],
+      github: "https://github.com/surajgupt1601/Portfolio_New",
       live: "#",
     },
     {
       name: "Student Management System",
-      date: "Oct 2024",
-      tech: ["HTML", "CSS", "JavaScript", "PHP", "Bootstrap", "MySQL"],
+      repoName: "Student-Management-System",
+      tech: ["PHP", "MySQL", "Bootstrap", "JavaScript", "HTML", "CSS"],
       description:
         "A comprehensive system for managing student records and administrative tasks with role-based authentication.",
       features: [
         "Role-based authentication (Admin, Student)",
         "Admin panel reduced manual work by ~40%",
       ],
-      github: "#",
+      github: "https://github.com/surajgupt1601/Student-Management-System",
       live: "#",
     },
     {
-      name: "Gardening Services Website",
-      date: "Nov 2024",
+      name: "EcoTravel – AI-Powered Tourism",
+      repoName: "EcoTravel",
+      tech: ["React", "Node.js", "MongoDB", "Gemini API", "Tailwind CSS"],
+      description:
+        "Full-stack MERN web app that encourages sustainable tourism using Google Gemini API for AI-driven travel suggestions.",
+      features: [
+        "AI-powered travel suggestions (Gemini API)",
+        "Carbon footprint calculator",
+        "Eco-friendly hotel listings",
+        "Interactive travel planner with maps",
+      ],
+      github: "https://github.com/surajgupt1601/EcoTravel",
+      live: "#",
+    },
+    {
+      name: "MediCare Plus – Healthcare Platform",
+      repoName: "Medicare-Plus---Hospital-Service",
+      tech: ["HTML", "CSS", "JavaScript", "Tailwind CSS", "GSAP", "Gemini API"],
+      description:
+        "A comprehensive healthcare platform with advanced features for patient care and medical consultations.",
+      features: [
+        "AI-based symptom checker",
+        "Appointment booking & emergency help",
+        "Video consultation & doctor availability",
+      ],
+      github:
+        "https://github.com/surajgupt1601/Medicare-Plus---Hospital-Service",
+      live: "https://medicare-plus-hospital-service.vercel.app",
+    },
+    {
+      name: "ToDo List App",
+      repoName: "ToDo-List",
       tech: ["HTML", "CSS", "JavaScript"],
       description:
-        "A professional business website for gardening services with modern design and booking functionality.",
-      features: [
-        "Responsive business website",
-        "Online maintenance booking form",
-      ],
-      github: "#",
-      live: "#",
+        "A simple and elegant to-do list application for task management.",
+      features: ["Add, edit, delete tasks", "Local storage persistence"],
+      github: "https://github.com/surajgupt1601/ToDo-List",
+      live: "https://surajgupt1601.github.io/ToDo-List/",
     },
   ],
 
