@@ -14,21 +14,36 @@ const Projects = () => {
   const projectRefs = useRef([]);
 
   useEffect(() => {
-    // GSAP ScrollTrigger for project cards
+    const cards = document.querySelectorAll(".project-card");
+
+    // First, make sure all cards are visible by default
+    gsap.set(cards, { opacity: 1, y: 0 });
+
     const ctx = gsap.context(() => {
-      gsap.from(".project-card", {
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top 70%",
-          end: "bottom 20%",
-          toggleActions: "play none none reverse",
-        },
-        opacity: 0,
-        y: 100,
-        stagger: 0.2,
-        duration: 1,
-        ease: "power3.out",
-      });
+      // Check if section is already in view (e.g., page refresh at projects section)
+      const sectionRect = sectionRef.current?.getBoundingClientRect();
+      const isAlreadyInView =
+        sectionRect && sectionRect.top < window.innerHeight;
+
+      if (!isAlreadyInView) {
+        // Only animate if section is NOT already visible
+        gsap.fromTo(
+          cards,
+          { opacity: 0, y: 80 },
+          {
+            opacity: 1,
+            y: 0,
+            stagger: 0.12,
+            duration: 0.7,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: "top 85%",
+              once: true,
+            },
+          }
+        );
+      }
     }, sectionRef);
 
     // Vanilla Tilt for 3D effect
