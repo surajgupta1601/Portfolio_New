@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { gsap } from "gsap";
+import VanillaTilt from "vanilla-tilt";
 import { FiDownload } from "react-icons/fi";
 import {
   SiReact,
@@ -14,6 +15,7 @@ import resumeData from "../data/resumeData";
 
 const Hero = () => {
   const heroRef = useRef(null);
+  const heroCardsRef = useRef([]);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   // Mouse tracking for spotlight effect
@@ -40,7 +42,25 @@ const Hero = () => {
       });
     }, heroRef);
 
-    return () => ctx.revert();
+    // VanillaTilt for React card only (center card)
+    const reactCard = heroCardsRef.current[0];
+    if (reactCard) {
+      VanillaTilt.init(reactCard, {
+        max: 15,
+        speed: 400,
+        glare: true,
+        "max-glare": 0.3,
+        scale: 1.05,
+      });
+    }
+
+    return () => {
+      ctx.revert();
+      const reactCard = heroCardsRef.current[0];
+      if (reactCard && reactCard.vanillaTilt) {
+        reactCard.vanillaTilt.destroy();
+      }
+    };
   }, []);
 
   const scrollToProjects = () => {
@@ -236,15 +256,11 @@ const Hero = () => {
 
               {/* Main React Card - Center */}
               <motion.div
+                ref={(el) => (heroCardsRef.current[0] = el)}
                 initial={{ opacity: 0, scale: 0.5 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.7, duration: 0.6 }}
-                whileHover={{
-                  scale: 1.05,
-                  rotate: 2,
-                  transition: { type: "spring", stiffness: 400, damping: 15 },
-                }}
-                className="absolute top-[28%] left-[25%] -translate-x-1/2 -translate-y-1/2 w-52 h-52 glass-card rounded-3xl p-6 flex flex-col items-center justify-center gap-4 shadow-2xl shadow-cyan-500/20 cursor-pointer z-10"
+                className="absolute top-[28%] left-[25%] -translate-x-1/2 -translate-y-1/2 w-52 h-52 glass-card rounded-3xl p-6 flex flex-col items-center justify-center gap-4 shadow-2xl shadow-cyan-500/20 cursor-pointer z-10 hero-tilt-card"
               >
                 <SiReact className="text-7xl text-cyan-400 animate-spin-slow" />
                 <div className="text-center">
