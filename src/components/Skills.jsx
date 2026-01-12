@@ -154,13 +154,19 @@ const Skills = () => {
                       className="skill-card glass-card p-6 rounded-2xl flex flex-col items-center justify-center gap-3 cursor-pointer group transition-shadow duration-150 hover:shadow-2xl"
                       style={{ transformStyle: "preserve-3d" }}
                     >
-                      <div
+                      <motion.div
                         className={`p-4 rounded-full bg-gradient-to-br ${getColorClasses(
                           category.color
                         )} transition-all duration-150`}
+                        whileHover={{ rotate: 360 }}
+                        transition={{
+                          duration: 0.6,
+                          type: "spring",
+                          stiffness: 200,
+                        }}
                       >
                         <Icon className="text-3xl text-white" />
-                      </div>
+                      </motion.div>
                       <span className="text-sm font-semibold text-gray-300 text-center group-hover:text-white transition-colors duration-150">
                         {skill}
                       </span>
