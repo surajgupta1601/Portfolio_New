@@ -7,8 +7,8 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="relative bg-gradient-to-b from-gray-900 to-black py-12">
-      <div className="container mx-auto px-6">
+    <footer className="relative bg-gradient-to-b from-gray-900 to-black py-8 sm:py-12 overflow-x-hidden">
+      <div className="container mx-auto px-4 sm:px-6 max-w-full">
         <div className="flex flex-col items-center gap-6">
           {/* Social Links */}
           <div className="flex gap-6">

@@ -19,7 +19,7 @@ function App() {
       {isLoading && <Loader onLoadingComplete={() => setIsLoading(false)} />}
 
       <div
-        className={`App bg-gray-900 ${
+        className={`App bg-gray-900 overflow-x-hidden max-w-full ${
           isLoading
             ? "opacity-0"
             : "opacity-100 transition-opacity duration-500"

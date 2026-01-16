@@ -23,15 +23,19 @@
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+  height: 100%;
+  overflow-x: hidden;
+}
+
 body {
   font-family: "Inter", sans-serif;
   background-color: var(--color-bg);
   color: var(--color-text);
   overflow-x: hidden;
-}
-
-html {
-  scroll-behavior: smooth;
+  min-height: 100%;
+  position: relative;
 }
 
 /* Custom Scrollbar */
@@ -70,6 +74,37 @@ html {
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.scrollbar-hide {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+/* Responsive Navbar Styles */
+@media (max-width: 640px) {
+  .nav-mobile-menu {
+    width: 75vw;
+    max-width: 280px;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 768px) {
+  .nav-tablet-scroll {
+    max-width: 50%;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .nav-tablet-scroll {
+    max-width: 65%;
+  }
 }
 
 /* Gradient Text */
@@ -163,7 +198,8 @@ section {
 
 /* Animated gradient for text */
 @keyframes gradient {
-  0%, 100% {
+  0%,
+  100% {
     background-position: 0% 50%;
   }
   50% {
@@ -201,15 +237,15 @@ section {
   h1 {
     font-size: 2.5rem;
   }
-  
+
   h2 {
     font-size: 2rem;
   }
-  
+
   .profile-card {
     max-width: 100%;
   }
-  
+
   .skill-badge {
     font-size: 0.875rem;
   }
@@ -237,4 +273,3 @@ section {
   transform: translateZ(0);
   backface-visibility: hidden;
 }
-

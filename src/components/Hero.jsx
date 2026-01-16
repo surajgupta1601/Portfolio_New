@@ -79,7 +79,7 @@ const Hero = () => {
     <section
       ref={heroRef}
       id="home"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900"
+      className="relative min-h-screen flex items-center justify-center overflow-x-hidden overflow-y-visible bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900 w-full max-w-full"
     >
       {/* Animated gradient mesh background */}
       <div className="absolute inset-0 bg-gradient-to-br from-purple-600/10 via-pink-600/10 to-blue-600/10">
@@ -110,7 +110,7 @@ const Hero = () => {
       </div>
 
       {/* Main Content */}
-      <div className="relative z-10 container mx-auto px-6 pt-32 pb-20">
+      <div className="relative z-10 container mx-auto px-4 sm:px-6 pt-24 sm:pt-32 pb-16 sm:pb-20 max-w-full overflow-hidden">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center max-w-7xl mx-auto">
           {/* Left Content */}
           <motion.div
@@ -146,12 +146,12 @@ const Hero = () => {
               <p className="text-purple-400 text-lg font-semibold mb-2">
                 Hi, I'm
               </p>
-              <h1 className="text-6xl md:text-7xl lg:text-8xl font-display font-bold mb-4">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-display font-bold mb-4">
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400 animate-gradient">
                   {resumeData.personal.name}
                 </span>
               </h1>
-              <h2 className="text-3xl md:text-4xl text-gray-300 font-light">
+              <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl text-gray-300 font-light">
                 {resumeData.personal.title}
               </h2>
             </motion.div>
@@ -218,10 +218,10 @@ const Hero = () => {
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="flex justify-center lg:justify-end"
+            className="flex justify-center lg:justify-end w-full"
           >
-            {/* Container sized for content: 2 rows of small cards + React in middle */}
-            <div className="relative w-[420px] h-[480px]">
+            {/* Container sized for content: 2 rows of small cards + React in middle - Responsive */}
+            <div className="relative w-[280px] h-[320px] sm:w-[340px] sm:h-[400px] md:w-[380px] md:h-[440px] lg:w-[420px] lg:h-[480px]">
               {/* JavaScript Card - Top Left */}
               <motion.div
                 initial={{ opacity: 0, x: -30 }}
@@ -232,10 +232,12 @@ const Hero = () => {
                   rotate: -5,
                   transition: { type: "spring", stiffness: 400, damping: 15 },
                 }}
-                className="absolute top-0 left-0 w-28 h-28 glass-card rounded-2xl p-4 flex flex-col items-center justify-center gap-2 shadow-xl shadow-yellow-500/20 cursor-pointer"
+                className="absolute top-0 left-0 w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 glass-card rounded-2xl p-3 sm:p-4 flex flex-col items-center justify-center gap-1 sm:gap-2 shadow-xl shadow-yellow-500/20 cursor-pointer"
               >
-                <SiJavascript className="text-4xl text-yellow-400" />
-                <p className="text-xs font-semibold text-white">JavaScript</p>
+                <SiJavascript className="text-2xl sm:text-3xl md:text-4xl text-yellow-400" />
+                <p className="text-[10px] sm:text-xs font-semibold text-white">
+                  JavaScript
+                </p>
               </motion.div>
 
               {/* CSS3 Card - Top Right */}
@@ -248,10 +250,12 @@ const Hero = () => {
                   rotate: 5,
                   transition: { type: "spring", stiffness: 400, damping: 15 },
                 }}
-                className="absolute top-0 right-0 w-28 h-28 glass-card rounded-2xl p-4 flex flex-col items-center justify-center gap-2 shadow-xl shadow-blue-500/20 cursor-pointer"
+                className="absolute top-0 right-0 w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 glass-card rounded-2xl p-3 sm:p-4 flex flex-col items-center justify-center gap-1 sm:gap-2 shadow-xl shadow-blue-500/20 cursor-pointer"
               >
-                <SiCss3 className="text-4xl text-blue-400" />
-                <p className="text-xs font-semibold text-white">CSS3</p>
+                <SiCss3 className="text-2xl sm:text-3xl md:text-4xl text-blue-400" />
+                <p className="text-[10px] sm:text-xs font-semibold text-white">
+                  CSS3
+                </p>
               </motion.div>
 
               {/* Main React Card - Center */}
@@ -260,12 +264,16 @@ const Hero = () => {
                 initial={{ opacity: 0, scale: 0.5 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.7, duration: 0.6 }}
-                className="absolute top-[28%] left-[25%] -translate-x-1/2 -translate-y-1/2 w-52 h-52 glass-card rounded-3xl p-6 flex flex-col items-center justify-center gap-4 shadow-2xl shadow-cyan-500/20 cursor-pointer z-10 hero-tilt-card"
+                className="absolute top-[28%] left-[25%] -translate-x-1/2 -translate-y-1/2 w-36 h-36 sm:w-44 sm:h-44 md:w-48 md:h-48 lg:w-52 lg:h-52 glass-card rounded-3xl p-4 sm:p-5 md:p-6 flex flex-col items-center justify-center gap-2 sm:gap-3 md:gap-4 shadow-2xl shadow-cyan-500/20 cursor-pointer z-10 hero-tilt-card"
               >
-                <SiReact className="text-7xl text-cyan-400 animate-spin-slow" />
+                <SiReact className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-cyan-400 animate-spin-slow" />
                 <div className="text-center">
-                  <h3 className="text-xl font-bold text-white mb-1">React</h3>
-                  <p className="text-xs text-gray-400">Component-Based UI</p>
+                  <h3 className="text-base sm:text-lg md:text-xl font-bold text-white mb-1">
+                    React
+                  </h3>
+                  <p className="text-[10px] sm:text-xs text-gray-400">
+                    Component-Based UI
+                  </p>
                 </div>
               </motion.div>
 
@@ -279,10 +287,12 @@ const Hero = () => {
                   rotate: 5,
                   transition: { type: "spring", stiffness: 400, damping: 15 },
                 }}
-                className="absolute bottom-0 left-0 w-28 h-28 glass-card rounded-2xl p-4 flex flex-col items-center justify-center gap-2 shadow-xl shadow-sky-500/20 cursor-pointer"
+                className="absolute bottom-0 left-0 w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 glass-card rounded-2xl p-3 sm:p-4 flex flex-col items-center justify-center gap-1 sm:gap-2 shadow-xl shadow-sky-500/20 cursor-pointer"
               >
-                <SiTailwindcss className="text-4xl text-sky-400" />
-                <p className="text-xs font-semibold text-white">Tailwind</p>
+                <SiTailwindcss className="text-2xl sm:text-3xl md:text-4xl text-sky-400" />
+                <p className="text-[10px] sm:text-xs font-semibold text-white">
+                  Tailwind
+                </p>
               </motion.div>
 
               {/* HTML5 Card - Bottom Right */}
@@ -295,10 +305,12 @@ const Hero = () => {
                   rotate: -5,
                   transition: { type: "spring", stiffness: 400, damping: 15 },
                 }}
-                className="absolute bottom-0 right-0 w-28 h-28 glass-card rounded-2xl p-4 flex flex-col items-center justify-center gap-2 shadow-xl shadow-orange-500/20 cursor-pointer"
+                className="absolute bottom-0 right-0 w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 glass-card rounded-2xl p-3 sm:p-4 flex flex-col items-center justify-center gap-1 sm:gap-2 shadow-xl shadow-orange-500/20 cursor-pointer"
               >
-                <SiHtml5 className="text-4xl text-orange-500" />
-                <p className="text-xs font-semibold text-white">HTML5</p>
+                <SiHtml5 className="text-2xl sm:text-3xl md:text-4xl text-orange-500" />
+                <p className="text-[10px] sm:text-xs font-semibold text-white">
+                  HTML5
+                </p>
               </motion.div>
             </div>
           </motion.div>

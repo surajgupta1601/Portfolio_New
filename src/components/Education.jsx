@@ -68,15 +68,15 @@ const Education = () => {
     <section
       ref={sectionRef}
       id="education"
-      className="relative py-20 bg-gray-900 overflow-hidden"
+      className="relative py-16 sm:py-20 bg-gray-900 overflow-x-hidden"
     >
       {/* Background decoration */}
-      <div className="absolute inset-0 opacity-30">
-        <div className="absolute top-20 left-10 w-72 h-72 bg-purple-600/20 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-20 right-10 w-72 h-72 bg-pink-600/20 rounded-full blur-3xl"></div>
+      <div className="absolute inset-0 opacity-30 overflow-hidden">
+        <div className="absolute top-20 left-10 w-48 sm:w-72 h-48 sm:h-72 bg-purple-600/20 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 right-10 w-48 sm:w-72 h-48 sm:h-72 bg-pink-600/20 rounded-full blur-3xl"></div>
       </div>
 
-      <div className="container mx-auto px-6 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 relative z-10 max-w-full">
         <motion.div
           variants={fadeIn}
           initial="hidden"
@@ -84,7 +84,7 @@ const Education = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-5xl md:text-6xl font-display font-bold text-white mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-bold text-white mb-4">
             Education &{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">
               Certifications
