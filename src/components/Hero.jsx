@@ -110,8 +110,8 @@ const Hero = () => {
       </div>
 
       {/* Main Content */}
-      <div className="relative z-10 container mx-auto px-4 sm:px-6 pt-24 sm:pt-32 pb-16 sm:pb-20 max-w-full overflow-hidden">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center max-w-7xl mx-auto">
+      <div className="relative z-10 container mx-auto px-4 sm:px-6 pt-24 sm:pt-32 pb-2 sm:pb-10 md:pb-20 max-w-full overflow-hidden">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center max-w-7xl mx-auto">
           {/* Left Content */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
@@ -321,7 +321,7 @@ const Hero = () => {
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.2 }}
-          className="mt-20"
+          className="mt-0 sm:mt-4 md:mt-8 lg:mt-12"
         >
           <div className="flex gap-4 justify-center flex-wrap max-w-4xl mx-auto">
             {skills.map((skill, index) => (
