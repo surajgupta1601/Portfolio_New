@@ -18,6 +18,20 @@ const Hero = () => {
   const heroCardsRef = useRef([]);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
+  // Typing animation state
+  const [currentTextIndex, setCurrentTextIndex] = useState(0);
+  const [currentCharIndex, setCurrentCharIndex] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [displayText, setDisplayText] = useState("");
+
+  const typingTexts = [
+    "React Developer",
+    "Frontend Engineer",
+    "UI/UX Enthusiast",
+    "Problem Solver",
+    "Web Developer",
+  ];
+
   // Mouse tracking for spotlight effect
   useEffect(() => {
     const handleMouseMove = (e) => {
@@ -27,6 +41,42 @@ const Hero = () => {
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
+
+  // Typing animation effect
+  useEffect(() => {
+    const currentText = typingTexts[currentTextIndex];
+    const typingSpeed = isDeleting ? 50 : 100;
+    const pauseTime = isDeleting ? 500 : 2000;
+
+    const timeout = setTimeout(
+      () => {
+        if (!isDeleting) {
+          // Typing
+          if (currentCharIndex < currentText.length) {
+            setDisplayText(currentText.substring(0, currentCharIndex + 1));
+            setCurrentCharIndex(currentCharIndex + 1);
+          } else {
+            // Pause before deleting
+            setTimeout(() => setIsDeleting(true), pauseTime);
+          }
+        } else {
+          // Deleting
+          if (currentCharIndex > 0) {
+            setDisplayText(currentText.substring(0, currentCharIndex - 1));
+            setCurrentCharIndex(currentCharIndex - 1);
+          } else {
+            setIsDeleting(false);
+            setCurrentTextIndex((prev) => (prev + 1) % typingTexts.length);
+          }
+        }
+      },
+      currentCharIndex === currentText.length && !isDeleting
+        ? pauseTime
+        : typingSpeed,
+    );
+
+    return () => clearTimeout(timeout);
+  }, [currentCharIndex, isDeleting, currentTextIndex]);
 
   // GSAP animations
   useEffect(() => {
@@ -157,7 +207,10 @@ const Hero = () => {
                 </span>
               </h1>
               <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl text-gray-300 font-light">
-                {resumeData.personal.title}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">
+                  {displayText}
+                </span>
+                <span className="animate-pulse text-purple-400">|</span>
               </h2>
             </motion.div>
 
