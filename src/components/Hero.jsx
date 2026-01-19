@@ -51,6 +51,11 @@ const Hero = () => {
         glare: true,
         "max-glare": 0.3,
         scale: 1.05,
+        gyroscope: true,
+        gyroscopeMinAngleX: -20,
+        gyroscopeMaxAngleX: 20,
+        gyroscopeMinAngleY: -20,
+        gyroscopeMaxAngleY: 20,
       });
     }
 
