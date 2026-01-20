@@ -9,6 +9,7 @@ import Education from "./components/Education";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import Loader from "./components/Loader";
+import ScrollProgress from "./components/ScrollProgress";
 import "./App.css";
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
             : "opacity-100 transition-opacity duration-500"
         }`}
       >
+        <ScrollProgress />
         <Navbar />
         <Hero />
         <About />
