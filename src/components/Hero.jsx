@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { gsap } from "gsap";
 import VanillaTilt from "vanilla-tilt";
-import { FiDownload } from "react-icons/fi";
+import { FiDownload, FiArrowRight } from "react-icons/fi";
 import {
   SiReact,
   SiJavascript,
@@ -10,7 +10,7 @@ import {
   SiHtml5,
   SiCss3,
 } from "react-icons/si";
-
+import ParticleBackground from "./ParticleBackground";
 import resumeData from "../data/resumeData";
 
 const Hero = () => {
@@ -51,16 +51,13 @@ const Hero = () => {
     const timeout = setTimeout(
       () => {
         if (!isDeleting) {
-          // Typing
           if (currentCharIndex < currentText.length) {
             setDisplayText(currentText.substring(0, currentCharIndex + 1));
             setCurrentCharIndex(currentCharIndex + 1);
           } else {
-            // Pause before deleting
             setTimeout(() => setIsDeleting(true), pauseTime);
           }
         } else {
-          // Deleting
           if (currentCharIndex > 0) {
             setDisplayText(currentText.substring(0, currentCharIndex - 1));
             setCurrentCharIndex(currentCharIndex - 1);
@@ -81,7 +78,6 @@ const Hero = () => {
   // GSAP animations
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Animate skill badges
       gsap.from(".skill-badge", {
         y: 50,
         opacity: 0,
@@ -90,9 +86,22 @@ const Hero = () => {
         delay: 1,
         ease: "power2.out",
       });
+
+      // Floating code snippets animation
+      gsap.to(".floating-code", {
+        y: -15,
+        duration: 3,
+        ease: "sine.inOut",
+        yoyo: true,
+        repeat: -1,
+        stagger: {
+          each: 0.5,
+          from: "random",
+        },
+      });
     }, heroRef);
 
-    // VanillaTilt for React card only (center card)
+    // VanillaTilt for React card only
     const reactCard = heroCardsRef.current[0];
     if (reactCard) {
       VanillaTilt.init(reactCard, {
@@ -122,6 +131,10 @@ const Hero = () => {
     document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" });
   };
 
+  const scrollToContact = () => {
+    document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+  };
+
   const skills = [
     { name: "React", icon: SiReact, color: "#61DAFB" },
     { name: "JavaScript", icon: SiJavascript, color: "#F7DF1E" },
@@ -134,8 +147,24 @@ const Hero = () => {
     <section
       ref={heroRef}
       id="home"
-      className="relative min-h-screen flex items-center justify-center overflow-x-hidden overflow-y-visible bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900 w-full max-w-full"
+      className="relative min-h-[100svh] flex items-center justify-center overflow-x-hidden overflow-y-visible bg-gradient-to-br from-gray-900 via-purple-900/50 to-gray-900 w-full max-w-full"
     >
+      {/* Particle Background */}
+      <ParticleBackground />
+
+      {/* Animated gradient orbs */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-purple-600/20 rounded-full blur-[100px] animate-pulse" />
+        <div
+          className="absolute -bottom-40 -left-40 w-80 h-80 bg-pink-600/20 rounded-full blur-[100px] animate-pulse"
+          style={{ animationDelay: "1s" }}
+        />
+        <div
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-blue-600/10 rounded-full blur-[120px] animate-pulse"
+          style={{ animationDelay: "2s" }}
+        />
+      </div>
+
       {/* Animated gradient mesh background */}
       <div className="absolute inset-0 bg-gradient-to-br from-purple-600/10 via-pink-600/10 to-blue-600/10">
         <div className="absolute inset-0 opacity-30">
@@ -154,7 +183,7 @@ const Hero = () => {
       ></div>
 
       {/* Grid pattern overlay */}
-      <div className="absolute inset-0 opacity-[0.02]">
+      <div className="absolute inset-0 opacity-[0.03]">
         <div
           className="absolute inset-0"
           style={{
@@ -164,8 +193,44 @@ const Hero = () => {
         ></div>
       </div>
 
+      {/* Floating code snippets - decorative */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none hidden md:block">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.4 }}
+          transition={{ delay: 2 }}
+          className="floating-code absolute top-[15%] left-[5%] text-xs font-mono text-purple-400/30 rotate-[-15deg]"
+        >
+          {"const App = () => {"}
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.4 }}
+          transition={{ delay: 2.3 }}
+          className="floating-code absolute top-[25%] right-[8%] text-xs font-mono text-pink-400/30 rotate-[10deg]"
+        >
+          {"<Component />"}
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.4 }}
+          transition={{ delay: 2.6 }}
+          className="floating-code absolute bottom-[30%] left-[8%] text-xs font-mono text-blue-400/30 rotate-[5deg]"
+        >
+          {"npm run dev"}
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.4 }}
+          transition={{ delay: 2.9 }}
+          className="floating-code absolute bottom-[20%] right-[5%] text-xs font-mono text-green-400/30 rotate-[-8deg]"
+        >
+          {"git push origin main"}
+        </motion.div>
+      </div>
+
       {/* Main Content */}
-      <div className="relative z-10 container mx-auto px-4 sm:px-6 pt-24 sm:pt-32 pb-2 sm:pb-10 md:pb-20 max-w-full overflow-hidden">
+      <div className="relative z-10 container mx-auto px-4 sm:px-6 pt-24 sm:pt-28 pb-2 sm:pb-4 md:pb-6 max-w-full overflow-hidden">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center max-w-7xl mx-auto">
           {/* Left Content */}
           <motion.div
@@ -181,7 +246,7 @@ const Hero = () => {
               transition={{ delay: 0.2 }}
               className="inline-block"
             >
-              <div className="glass-card px-4 py-2 rounded-full inline-flex items-center gap-2">
+              <div className="glass-card px-4 py-2 rounded-full inline-flex items-center gap-2 hover:bg-white/10 transition-colors duration-300">
                 <span className="relative flex h-2 w-2">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
@@ -198,7 +263,7 @@ const Hero = () => {
               animate={{ opacity: 1 }}
               transition={{ delay: 0.3 }}
             >
-              <p className="text-purple-400 text-lg font-semibold mb-2">
+              <p className="text-purple-400 text-lg font-semibold mb-2 tracking-wider uppercase">
                 Hi, I'm
               </p>
               <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-display font-bold mb-4">
@@ -231,29 +296,17 @@ const Hero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.7 }}
-              className="flex flex-wrap gap-4"
+              className="flex flex-col sm:flex-row gap-3 sm:gap-4"
             >
               <motion.button
                 onClick={scrollToProjects}
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
-                className="group relative px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-2xl font-semibold text-lg overflow-hidden shadow-lg shadow-purple-500/50 hover:shadow-purple-500/70 transition-all duration-300"
+                className="group relative px-5 sm:px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-2xl font-semibold text-base overflow-hidden shadow-lg shadow-purple-500/50 hover:shadow-purple-500/70 transition-all duration-300"
               >
                 <span className="relative z-10 flex items-center gap-2">
                   View My Work
-                  <svg
-                    className="w-5 h-5 group-hover:translate-x-1 transition-transform"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M17 8l4 4m0 0l-4 4m4-4H3"
-                    />
-                  </svg>
+                  <FiArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </span>
                 <div className="absolute inset-0 bg-gradient-to-r from-pink-600 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </motion.button>
@@ -263,11 +316,34 @@ const Hero = () => {
                 download
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
-                className="group px-8 py-4 border-2 border-purple-400/50 text-white rounded-2xl font-semibold text-lg hover:border-purple-400 hover:bg-purple-400/10 transition-all duration-300 flex items-center gap-2 backdrop-blur-sm"
+                className="group px-5 sm:px-6 py-3 border-2 border-purple-400/50 text-white rounded-2xl font-semibold text-base hover:border-purple-400 hover:bg-purple-400/10 transition-all duration-300 flex items-center justify-center gap-2 backdrop-blur-sm"
               >
                 <FiDownload className="group-hover:animate-bounce" />
                 Download CV
               </motion.a>
+
+              <motion.button
+                onClick={scrollToContact}
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.95 }}
+                className="group px-5 sm:px-6 py-3 bg-white/5 backdrop-blur-sm text-white rounded-2xl font-semibold text-base hover:bg-white/10 transition-all duration-300 flex items-center justify-center gap-2 border border-white/10"
+              >
+                Let's Talk 💬
+              </motion.button>
+            </motion.div>
+
+            {/* Quick stats */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1 }}
+              className="flex gap-6 sm:gap-8 pt-4"
+            >
+              <StatCounter end={6} label="Projects" suffix="+" />
+              <div className="w-px bg-gray-700" />
+              <StatCounter end={5} label="Months Exp." suffix="+" />
+              <div className="w-px bg-gray-700" />
+              <StatCounter end={10} label="Technologies" suffix="+" />
             </motion.div>
           </motion.div>
 
@@ -278,7 +354,6 @@ const Hero = () => {
             transition={{ duration: 0.8, delay: 0.3 }}
             className="flex justify-center lg:justify-end w-full"
           >
-            {/* Container sized for content: 2 rows of small cards + React in middle - Responsive */}
             <div className="relative w-[280px] h-[320px] sm:w-[340px] sm:h-[400px] md:w-[380px] md:h-[440px] lg:w-[420px] lg:h-[480px]">
               {/* JavaScript Card - Top Left */}
               <motion.div
@@ -290,9 +365,9 @@ const Hero = () => {
                   rotate: -5,
                   transition: { type: "spring", stiffness: 400, damping: 15 },
                 }}
-                className="absolute top-0 left-0 w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 glass-card rounded-2xl p-3 sm:p-4 flex flex-col items-center justify-center gap-1 sm:gap-2 shadow-xl shadow-yellow-500/20 cursor-pointer"
+                className="absolute top-0 left-0 w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 glass-card rounded-2xl p-3 sm:p-4 flex flex-col items-center justify-center gap-1 sm:gap-2 shadow-xl shadow-yellow-500/20 cursor-pointer group"
               >
-                <SiJavascript className="text-2xl sm:text-3xl md:text-4xl text-yellow-400" />
+                <SiJavascript className="text-2xl sm:text-3xl md:text-4xl text-yellow-400 group-hover:scale-110 transition-transform" />
                 <p className="text-[10px] sm:text-xs font-semibold text-white">
                   JavaScript
                 </p>
@@ -308,9 +383,9 @@ const Hero = () => {
                   rotate: 5,
                   transition: { type: "spring", stiffness: 400, damping: 15 },
                 }}
-                className="absolute top-0 right-0 w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 glass-card rounded-2xl p-3 sm:p-4 flex flex-col items-center justify-center gap-1 sm:gap-2 shadow-xl shadow-blue-500/20 cursor-pointer"
+                className="absolute top-0 right-0 w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 glass-card rounded-2xl p-3 sm:p-4 flex flex-col items-center justify-center gap-1 sm:gap-2 shadow-xl shadow-blue-500/20 cursor-pointer group"
               >
-                <SiCss3 className="text-2xl sm:text-3xl md:text-4xl text-blue-400" />
+                <SiCss3 className="text-2xl sm:text-3xl md:text-4xl text-blue-400 group-hover:scale-110 transition-transform" />
                 <p className="text-[10px] sm:text-xs font-semibold text-white">
                   CSS3
                 </p>
@@ -345,9 +420,9 @@ const Hero = () => {
                   rotate: 5,
                   transition: { type: "spring", stiffness: 400, damping: 15 },
                 }}
-                className="absolute bottom-0 left-0 w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 glass-card rounded-2xl p-3 sm:p-4 flex flex-col items-center justify-center gap-1 sm:gap-2 shadow-xl shadow-sky-500/20 cursor-pointer"
+                className="absolute bottom-0 left-0 w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 glass-card rounded-2xl p-3 sm:p-4 flex flex-col items-center justify-center gap-1 sm:gap-2 shadow-xl shadow-sky-500/20 cursor-pointer group"
               >
-                <SiTailwindcss className="text-2xl sm:text-3xl md:text-4xl text-sky-400" />
+                <SiTailwindcss className="text-2xl sm:text-3xl md:text-4xl text-sky-400 group-hover:scale-110 transition-transform" />
                 <p className="text-[10px] sm:text-xs font-semibold text-white">
                   Tailwind
                 </p>
@@ -363,13 +438,26 @@ const Hero = () => {
                   rotate: -5,
                   transition: { type: "spring", stiffness: 400, damping: 15 },
                 }}
-                className="absolute bottom-0 right-0 w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 glass-card rounded-2xl p-3 sm:p-4 flex flex-col items-center justify-center gap-1 sm:gap-2 shadow-xl shadow-orange-500/20 cursor-pointer"
+                className="absolute bottom-0 right-0 w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 glass-card rounded-2xl p-3 sm:p-4 flex flex-col items-center justify-center gap-1 sm:gap-2 shadow-xl shadow-orange-500/20 cursor-pointer group"
               >
-                <SiHtml5 className="text-2xl sm:text-3xl md:text-4xl text-orange-500" />
+                <SiHtml5 className="text-2xl sm:text-3xl md:text-4xl text-orange-500 group-hover:scale-110 transition-transform" />
                 <p className="text-[10px] sm:text-xs font-semibold text-white">
                   HTML5
                 </p>
               </motion.div>
+
+              {/* Orbiting ring decoration */}
+              <div className="absolute top-[28%] left-[25%] -translate-x-1/2 -translate-y-1/2 w-56 h-56 sm:w-64 sm:h-64 md:w-72 md:h-72 lg:w-80 lg:h-80 pointer-events-none">
+                <motion.div
+                  animate={{ rotate: 360 }}
+                  transition={{
+                    duration: 20,
+                    repeat: Infinity,
+                    ease: "linear",
+                  }}
+                  className="w-full h-full rounded-full border border-purple-500/10 border-dashed"
+                />
+              </div>
             </div>
           </motion.div>
         </div>
@@ -386,10 +474,10 @@ const Hero = () => {
               <motion.div
                 key={skill.name}
                 whileHover={{ scale: 1.1, y: -5 }}
-                className="skill-badge glass-card px-6 py-3 rounded-2xl flex items-center gap-3 cursor-pointer group"
+                className="skill-badge glass-card px-6 py-3 rounded-2xl flex items-center gap-3 cursor-pointer group hover:bg-white/[0.08] transition-colors duration-300"
               >
                 <skill.icon
-                  className="text-2xl"
+                  className="text-2xl group-hover:scale-110 transition-transform"
                   style={{ color: skill.color }}
                 />
                 <span className="text-sm font-semibold text-gray-300 group-hover:text-white transition-colors">
@@ -400,7 +488,94 @@ const Hero = () => {
           </div>
         </motion.div>
       </div>
+
+      {/* Scroll indicator — fixed to viewport bottom, hidden on scroll */}
+      <ScrollIndicator />
     </section>
+  );
+};
+
+// Scroll indicator fixed to viewport bottom
+const ScrollIndicator = () => {
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const showTimer = setTimeout(() => setVisible(true), 2000);
+
+    const handleScroll = () => {
+      setVisible(window.scrollY < 100);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => {
+      clearTimeout(showTimer);
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: visible ? 1 : 0 }}
+      transition={{ duration: 0.3 }}
+      className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 flex flex-col items-center gap-2 pointer-events-none"
+    >
+      <span className="text-xs text-gray-500 tracking-widest uppercase">
+        Scroll
+      </span>
+      <motion.div
+        animate={{ y: [0, 8, 0] }}
+        transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+        className="w-5 h-8 rounded-full border-2 border-gray-600 flex justify-center pt-1.5"
+      >
+        <div className="w-1 h-2 bg-purple-400 rounded-full" />
+      </motion.div>
+    </motion.div>
+  );
+};
+
+// Animated Counter Component
+const StatCounter = ({ end, label, suffix = "" }) => {
+  const [count, setCount] = useState(0);
+  const ref = useRef(null);
+  const [hasAnimated, setHasAnimated] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !hasAnimated) {
+          setHasAnimated(true);
+          let start = 0;
+          const duration = 2000;
+          const startTime = Date.now();
+
+          const animate = () => {
+            const elapsed = Date.now() - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            // Ease out cubic
+            const eased = 1 - Math.pow(1 - progress, 3);
+            setCount(Math.floor(eased * end));
+            if (progress < 1) {
+              requestAnimationFrame(animate);
+            }
+          };
+          requestAnimationFrame(animate);
+        }
+      },
+      { threshold: 0.5 },
+    );
+
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, [end, hasAnimated]);
+
+  return (
+    <div ref={ref} className="text-center">
+      <p className="text-2xl sm:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">
+        {count}
+        {suffix}
+      </p>
+      <p className="text-xs sm:text-sm text-gray-500 mt-1">{label}</p>
+    </div>
   );
 };
 

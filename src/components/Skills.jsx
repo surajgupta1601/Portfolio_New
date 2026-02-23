@@ -108,7 +108,7 @@ const Skills = () => {
     <section
       ref={sectionRef}
       id="skills"
-      className="relative py-16 sm:py-20 bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 overflow-x-hidden"
+      className="relative pt-10 sm:pt-14 pb-16 sm:pb-20 bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 overflow-x-hidden"
     >
       <div className="container mx-auto px-4 sm:px-6 max-w-full">
         <motion.div
@@ -118,6 +118,9 @@ const Skills = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
+          <p className="text-purple-400 font-semibold tracking-widest uppercase text-sm mb-4">
+            What I work with
+          </p>
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-bold text-white mb-4">
             Skills &{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">

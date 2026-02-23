@@ -10,6 +10,8 @@ import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import Loader from "./components/Loader";
 import ScrollProgress from "./components/ScrollProgress";
+import CustomCursor from "./components/CustomCursor";
+import BackToTop from "./components/BackToTop";
 import "./App.css";
 
 function App() {
@@ -18,6 +20,8 @@ function App() {
   return (
     <>
       {isLoading && <Loader onLoadingComplete={() => setIsLoading(false)} />}
+
+      <CustomCursor />
 
       <div
         className={`App bg-gray-900 overflow-x-hidden max-w-full ${
@@ -36,6 +40,7 @@ function App() {
         <Education />
         <Contact />
         <Footer />
+        <BackToTop />
       </div>
     </>
   );

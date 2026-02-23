@@ -181,6 +181,9 @@ const Contact = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
+          <p className="text-purple-400 font-semibold tracking-widest uppercase text-sm mb-4">
+            Let's connect
+          </p>
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-bold text-white mb-4">
             Get In{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">

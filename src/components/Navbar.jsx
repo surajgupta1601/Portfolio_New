@@ -261,7 +261,7 @@ const Navbar = () => {
                   className="pt-6 border-t border-white/10"
                 >
                   <p className="text-gray-500 text-sm text-center">
-                    © 2024 Suraj Gupta
+                    © {new Date().getFullYear()} Suraj Gupta
                   </p>
                 </motion.div>
               </div>
