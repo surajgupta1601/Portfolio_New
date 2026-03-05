@@ -100,7 +100,7 @@ const Contact = () => {
     return !Object.values(newErrors).some((error) => error);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!validateForm()) {
@@ -110,26 +110,47 @@ const Contact = () => {
     setIsSubmitting(true);
     setSubmitStatus(null);
 
-    // Simulate form submission (replace with actual API call)
-    setTimeout(() => {
-      // Simulate success (change to handle actual response)
-      const isSuccess = true; // Change based on API response
+    try {
+      // Create FormData object
+      const payload = new FormData();
+      payload.append("access_key", "d021a11c-2656-48c2-b71b-667d03994c89");
+      payload.append("name", formData.name);
+      payload.append("email", formData.email);
+      payload.append("message", formData.message);
 
-      if (isSuccess) {
+      // Additional options for better email formatting
+      payload.append(
+        "subject",
+        `New Message from ${formData.name} - Portfolio Contact Form`,
+      );
+      payload.append("from_name", "Your Portfolio Website");
+
+      // Send request to Web3Forms
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: payload,
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
         setSubmitStatus("success");
         setFormData({ name: "", email: "", message: "" });
         setErrors({});
       } else {
+        console.error("Form submission error:", data);
         setSubmitStatus("error");
       }
-
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      setSubmitStatus("error");
+    } finally {
       setIsSubmitting(false);
-
       // Auto-hide success message after 5 seconds
       setTimeout(() => {
         setSubmitStatus(null);
       }, 5000);
-    }, 1500);
+    }
   };
 
   const contactInfo = [
