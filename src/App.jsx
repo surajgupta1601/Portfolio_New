@@ -7,6 +7,7 @@ import Loader from "./components/Loader";
 import ScrollProgress from "./components/ScrollProgress";
 import BackToTop from "./components/BackToTop";
 import CustomCursor from "./components/CustomCursor";
+import SEO from "./components/SEO";
 
 // Lazy loaded components - only loaded when needed
 const About = lazy(() => import("./components/About"));
@@ -45,6 +46,7 @@ function App() {
   return (
     <>
       {isLoading && <Loader onLoadingComplete={() => setIsLoading(false)} />}
+      <SEO />
       <CustomCursor />
 
       <div
